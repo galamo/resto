@@ -1,6 +1,7 @@
-import React from "react"
-
+import React, { useContext } from "react"
+import { MoviesContext } from "../../../../App"
 
 export default function HomePage() {
-    return <div> HomePage </div>
+    const [state, setter] = useContext(MoviesContext);
+    return <div> {JSON.stringify(state)} </div>
 }
