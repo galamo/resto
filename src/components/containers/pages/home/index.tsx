@@ -7,7 +7,10 @@ import { BagFill } from "react-bootstrap-icons";
 
 export default function HomePage() {
   const [state, setState] = useContext(MealsContext);
-
+  console.log(setState);
+  console.log(state);
+  console.log("state");
+  console.log(state);
   async function getRecipesApi() {
     try {
       const result = await axios.get("http://localhost:5200/meals");
@@ -32,10 +35,10 @@ export default function HomePage() {
 }
 
 function AddToCartButton(props: any) {
-  const [state, setState] = useContext(MealsContext);
+  const [_, dispatch] = useContext(MealsContext);
 
   function addMeal() {
-    setState({ ...state, orders: [...state.orders, props.meal] });
+    dispatch({ type: "add", payload: props });
   }
   return (
     <Button variant={props.cls || "primary"} onClick={addMeal}>
