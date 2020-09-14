@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { MealsContext } from "App";
 import axios from "axios";
 import Meal, { IMeal } from "components/ui-components/meal";
+import Button from "react-bootstrap/Button";
+import { BagFill } from "react-bootstrap-icons";
 
 export default function HomePage() {
   const [state, setState] = useContext(MealsContext);
@@ -13,9 +15,7 @@ export default function HomePage() {
     } catch (ex) {}
   }
   //action(props)
-  function addMeal(meal: IMeal) {
-    setState({ ...state, orders: [...state.orders, meal] });
-  }
+
   useEffect(() => {
     getRecipesApi();
   }, []);
@@ -23,8 +23,23 @@ export default function HomePage() {
   return (
     <div className="row">
       {state?.meals.map((meal: any) => {
-        return <Meal actionTitle="Order Now" {...meal} action={addMeal} />;
+        return (
+          <Meal {...meal} actionComponent={<AddToCartButton meal={meal} />} />
+        );
       })}
     </div>
+  );
+}
+
+function AddToCartButton(props: any) {
+  const [state, setState] = useContext(MealsContext);
+
+  function addMeal() {
+    setState({ ...state, orders: [...state.orders, props.meal] });
+  }
+  return (
+    <Button variant={props.cls || "primary"} onClick={addMeal}>
+      <BagFill />
+    </Button>
   );
 }
