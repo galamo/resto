@@ -7,6 +7,14 @@ import Button from "react-bootstrap/Button";
 export default function OrdersPage() {
   const [state, setState] = useContext(MealsContext);
   const { orders } = state;
+
+  function removeMeal(meal: any) {
+    const withoutDeleted = orders.filter(
+      (order: any) => order.name !== meal.name
+    );
+    setState({ ...state, orders: [...withoutDeleted] });
+  }
+
   function getTotalCal() {
     const total = orders.reduce((total: number, order: any) => {
       console.log(parseInt(order.calories));
@@ -24,7 +32,7 @@ export default function OrdersPage() {
           {" "}
           Total Price: <Badge variant="secondary">{getTotalCal()} Cal</Badge>
         </h2>
-        <Button 
+        <Button
           onClick={() => {
             setState({ ...state, orders: [] });
           }}
@@ -37,7 +45,14 @@ export default function OrdersPage() {
       </div>
       <div>
         {orders.map((meal: any) => {
-          return <Meal {...meal} cls="danger" actionTitle="Remove" />;
+          return (
+            <Meal
+              {...meal}
+              cls="danger"
+              actionTitle="Remove"
+              action={removeMeal}
+            />
+          );
         })}
       </div>
     </div>
