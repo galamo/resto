@@ -24,7 +24,7 @@ export default function OrdersPage() {
           {" "}
           Total Price: <Badge variant="secondary">{getTotalCal()} Cal</Badge>
         </h2>
-        <Button 
+        <Button
           onClick={() => {
             setState({ ...state, orders: [] });
           }}
@@ -37,9 +37,31 @@ export default function OrdersPage() {
       </div>
       <div>
         {orders.map((meal: any) => {
-          return <Meal {...meal} cls="danger" actionTitle="Remove" />;
+          return (
+            <Meal
+              {...meal}
+              cls="danger"
+              actionTitle="Remove"
+              btn={<DelBtn name={meal.name} />}
+            />
+          );
         })}
       </div>
     </div>
+  );
+}
+
+function DelBtn(props: { name: string }) {
+  const [state, setState] = useContext(MealsContext);
+  const { orders } = state;
+
+  return (
+    <button
+      onClick={() => {
+        setState({ ...state, orders: [] });
+      }}
+    >
+      delete
+    </button>
   );
 }
