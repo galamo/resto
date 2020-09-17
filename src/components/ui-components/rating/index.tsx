@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { Star } from "react-bootstrap-icons";
-import { ConfigurationContext } from "App";
 
 interface IProps {
   stars: number;
@@ -8,7 +7,7 @@ interface IProps {
 }
 
 export default function Rating(props: IProps) {
-  const [getConfig] = useContext(ConfigurationContext);
+  const getConfig = { starsColor: "green" };
 
   if (typeof props.stars !== "number") return <span> No rating</span>;
   const roundedStars: number = Math.ceil(props.stars);

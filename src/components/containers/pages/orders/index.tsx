@@ -1,12 +1,10 @@
 import React, { useContext } from "react";
-import { MealsContext } from "App";
 import Meal, { IMeal } from "components/ui-components/meal";
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
 
 export default function OrdersPage() {
-  const [state, setState] = useContext(MealsContext);
-  const { orders } = state;
+  const orders: Array<any> = [];
   function getTotalCal() {
     const total = orders.reduce((total: number, order: any) => {
       console.log(parseInt(order.calories));
@@ -20,7 +18,7 @@ export default function OrdersPage() {
     const ordersWithoutDeleteMeal = orders.filter(
       (order: IMeal) => order.name !== meal.name
     );
-    setState({ ...state, orders: ordersWithoutDeleteMeal });
+    // setState({ ...state, orders: ordersWithoutDeleteMeal });
   }
   return (
     <div>
@@ -36,7 +34,7 @@ export default function OrdersPage() {
           <Button
             className={"pull-right"}
             onClick={() => {
-              setState({ ...state, orders: [] });
+              // setState({ ...state, orders: [] });
             }}
             variant="danger"
             size="lg"

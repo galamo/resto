@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { ConfigurationContext } from "App";
 import { changeStarsColor, changeImageSize } from "store/config.actions";
 
-export default function ConfigurationPage() {
-  const [stateConfig, dispatch] = useContext(ConfigurationContext);
+import { useDispatch, useSelector } from "react-redux";
 
+export default function ConfigurationPage() {
+  // [state,dispatch] = useContext(SomeContext)
+  const state = useSelector((state: any) => state.configReducer);
+  const dispatch = useDispatch();
+  const { starsColor, imageSize } = state;
   function onColorChange(color: string): void {
     dispatch(changeStarsColor(color));
   }
@@ -25,7 +28,7 @@ export default function ConfigurationPage() {
     <div>
       <h1 className="jumbotron"> Configuration </h1>
       <div className="row">
-        <h2 style={{ color: stateConfig.starsColor }}> Selected color </h2>
+        <h2 style={{ color: starsColor }}> Selected color </h2>
         <div className="row mt-5">
           {configButtonsColor.map((color) => {
             return <ButtonWrapper color={color} />;
@@ -40,7 +43,7 @@ export default function ConfigurationPage() {
             action={(value: number) => {
               dispatch(changeImageSize(value));
             }}
-            value={stateConfig.imageSize / 3}
+            value={imageSize / 3}
           />
         </div>
       </div>

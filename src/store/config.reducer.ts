@@ -10,7 +10,10 @@ interface IProps {
   payload: any; // what am i sending
 }
 
-export default function configReducer(state: any, action: IProps) {
+export default function configReducer(
+  state: any = initConfigState,
+  action: IProps
+) {
   switch (action.type) {
     case ACTIONS.CONFIG.CHANGE_STARS_COLOR: {
       const { payload: color } = action;

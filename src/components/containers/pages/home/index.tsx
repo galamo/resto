@@ -1,11 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import { MealsContext } from "App";
 import axios from "axios";
 import Meal, { IMeal } from "components/ui-components/meal";
 import { addMealAction, getMealsFromServerDone } from "store/meals.actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function HomePage() {
-  const [state, dispatch] = useContext(MealsContext);
+  const meals = useSelector((state: any) => state.mealsReducer.meals);
+  const dispatch = useDispatch();
+
+  console.log("Meals reducer Store has changed");
 
   async function getRecipesApi() {
     try {
@@ -20,10 +23,10 @@ export default function HomePage() {
   useEffect(() => {
     getRecipesApi();
   }, []);
-  if (!state.meals) return <span> No Meals </span>;
+  if (!meals) return <span> No Meals </span>;
   return (
     <div className="row">
-      {state?.meals.map((meal: any) => {
+      {meals.map((meal: any) => {
         return (
           <Meal
             key={meal.name}
