@@ -6,3 +6,10 @@ export function changeStarsColor(payload: string) {
     payload,
   };
 }
+
+export function changeImageSize(payload: number) {
+  return {
+    type: ACTIONS.CONFIG.CHANGE_IMAGE_SIZE,
+    payload,
+  };
+}

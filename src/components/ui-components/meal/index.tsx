@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { MealsContext } from "App";
+import { MealsContext, ConfigurationContext } from "App";
 import Rating from "components/ui-components/rating";
 
 export interface IMeal {
@@ -14,6 +14,7 @@ export interface IMeal {
   rating: number;
 }
 export default function Meal(props: IMeal) {
+  const [stateConfig] = useContext(ConfigurationContext);
   const { action } = props;
 
   function onAction() {
@@ -23,7 +24,11 @@ export default function Meal(props: IMeal) {
   }
   return (
     <Card className="col-lg-4">
-      <Card.Img variant="top" src={props.image} />
+      <Card.Img
+        variant="top"
+        src={props.image}
+        style={{ width: `${stateConfig.imageSize}px` }}
+      />
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
         <Card.Text>{props.description}</Card.Text>

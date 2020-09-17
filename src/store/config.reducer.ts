@@ -2,6 +2,7 @@ import { ACTIONS } from "./actions.config";
 
 export const initConfigState = {
   starsColor: "red",
+  imageSize: 200,
 };
 
 interface IProps {
@@ -14,6 +15,10 @@ export default function configReducer(state: any, action: IProps) {
     case ACTIONS.CONFIG.CHANGE_STARS_COLOR: {
       const { payload: color } = action;
       return { ...state, starsColor: color };
+    }
+    case ACTIONS.CONFIG.CHANGE_IMAGE_SIZE: {
+      const { payload: size } = action;
+      return { ...state, imageSize: size * 3 };
     }
     default: {
       return state;
