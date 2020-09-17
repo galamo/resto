@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { MealsContext } from "App";
 import axios from "axios";
 import Meal, { IMeal } from "components/ui-components/meal";
-import { addMealAction } from "store/meals.actions";
+import { addMealAction, getMealsFromServerDone } from "store/meals.actions";
 
 export default function HomePage() {
   const [state, dispatch] = useContext(MealsContext);
@@ -10,7 +10,7 @@ export default function HomePage() {
   async function getRecipesApi() {
     try {
       const result = await axios.get("http://localhost:5200/meals");
-      dispatch({ type: "GET_MEALS_FROM_SERVER_DONE", payload: result.data });
+      dispatch(getMealsFromServerDone(result.data));
     } catch (ex) {}
   }
   //action(props)

@@ -7,3 +7,10 @@ export function addMealAction(payload: IMeal) {
     payload,
   };
 }
+
+export function getMealsFromServerDone(payload: Array<any>) {
+  return {
+    type: ACTIONS.GET_MEALS_FROM_SERVER_DONE,
+    payload,
+  };
+}

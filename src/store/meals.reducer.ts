@@ -1,6 +1,6 @@
 import { ACTIONS } from "./actions.config";
 
-export const initialState = {
+export const initMealsState = {
   meals: [],
   orders: [],
   users: [],
@@ -13,14 +13,13 @@ interface IProps {
   payload: any; // what am i sending
 }
 
-
 export default function mealsReducer(state: any, action: IProps) {
   switch (action.type) {
     case ACTIONS.ADD_MEAL: {
       const { payload } = action;
       return { ...state, orders: [...state.orders, payload] };
     }
-    case "GET_MEALS_FROM_SERVER_DONE": {
+    case ACTIONS.GET_MEALS_FROM_SERVER_DONE: {
       const { payload } = action;
       return { ...state, meals: payload };
     }
@@ -31,6 +30,7 @@ export default function mealsReducer(state: any, action: IProps) {
       return { ...state, orders: [...newOrders] };
     }
     default: {
+      console.log("i am here! this is not your reducer!!");
       return state;
     }
   }

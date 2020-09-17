@@ -4,22 +4,23 @@ import "./App.css";
 import NavBarApp from "./components/ui-components/header/";
 import AppRouter from "./components/containers/appRouter";
 import { BrowserRouter as Router } from "react-router-dom";
-import mealsReducer, { initialState } from "store/reducer";
+import mealsReducer, { initMealsState } from "store/meals.reducer";
+import configReducer, { initConfigState } from "store/config.reducer";
 
 export const MealsContext: any = React.createContext(null);
 export const ConfigurationContext: any = React.createContext(null);
 
 function App() {
-  const [state, dispatch] = useReducer(mealsReducer, initialState);
-
-  //   const [globalState, setGlobalState] = useState(initialState);
-  const initialConfigurationState = { starsColor: "red" };
-  const [getConfig, setConfig] = useState(initialConfigurationState);
+  const [stateMeals, dispatchMeals] = useReducer(mealsReducer, initMealsState);
+  const [stateConfig, dispatchConfig] = useReducer(
+    configReducer,
+    initConfigState
+  );
 
   return (
     <Router>
-      <ConfigurationContext.Provider value={[getConfig, setConfig]}>
-        <MealsContext.Provider value={[state, dispatch]}>
+      <ConfigurationContext.Provider value={[stateConfig, dispatchConfig]}>
+        <MealsContext.Provider value={[stateMeals, dispatchMeals]}>
           <div className="container">
             <NavBarApp />
             <AppRouter />
