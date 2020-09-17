@@ -17,3 +17,8 @@ npm i axios react-router-dom @types/react-router-dom  react-bootstrap bootstrap
 
 # API FROM:
 https://github.com/galamo/api-recipes
+
+
+
+# React redux 
+- npm i redux react-redux @types/redux @types/react-redux
