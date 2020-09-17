@@ -4,17 +4,19 @@ import axios from "axios";
 import Meal, { IMeal } from "components/ui-components/meal";
 
 export default function HomePage() {
-  const [state, setState] = useContext(MealsContext);
+  const [state, dispatch] = useContext(MealsContext);
 
   async function getRecipesApi() {
     try {
       const result = await axios.get("http://localhost:5200/meals");
-      setState({ ...state, meals: [...state?.meals, ...result.data] });
+      dispatch({ type: "GET_MEALS_FROM_SERVER_DONE", payload: result.data });
+      //   setState({ ...state, meals: [...state?.meals, ...result.data] });
     } catch (ex) {}
   }
   //action(props)
   function addMeal(meal: IMeal) {
-    setState({ ...state, orders: [...state.orders, meal] });
+    dispatch({ type: "ADD_MEAL", payload: meal });
+    // setState({ ...state, orders: [...state.orders, meal] });
   }
   useEffect(() => {
     getRecipesApi();
@@ -23,7 +25,14 @@ export default function HomePage() {
   return (
     <div className="row">
       {state?.meals.map((meal: any) => {
-        return <Meal actionTitle="Order Now" {...meal} action={addMeal} />;
+        return (
+          <Meal
+            key={meal.name}
+            actionTitle="Order Now"
+            {...meal}
+            action={addMeal}
+          />
+        );
       })}
     </div>
   );
